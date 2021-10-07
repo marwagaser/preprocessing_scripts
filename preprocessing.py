@@ -3,6 +3,8 @@ import preprocessor as p
 import emoji
 p.set_options(p.OPT.URL, p.OPT.SMILEY)#1.emoji option removed as it messes up Arabic letters 2.do not include p.OPT.RESERVED,p.OPT.MENTION,p.OPT.HASHTAG
 preprocessedtext = []
+def keep_En_Ar(line): #remove any character that is neither English nor Arabic
+    return re.sub(r'[^\x00-\x7F،-٩0-9]+',' ',line)
 def removeHashtagsandMentionSymbol(line): #removes hashtags and mentions without removing word attached to it
     return re.sub(r"\#|\@","",line)
 def unifyapostrophe(line):
@@ -36,7 +38,7 @@ def remove_tags(line):
     return re.sub(r"\<|\>|\«|\»","",line)
 with open ("/home/marwagaser/c1.txt","r") as textfile:#(change file name here)
     for line in textfile:
-        line = lowercase(remove_trailing_leading_spaces(removeextraspace(removeHashtagsandMentionSymbol(remove_tags(removeBestTranslationSign(tokenizePunc(tokenizeContractions(tokenizeNumerics(removeDuplicates(removeTypoCorrectionSign(twitterprocessor(unifyapostrophe(line)))))))))))))
+        line = lowercase(remove_trailing_leading_spaces(removeextraspace(keep_En_Ar(removeHashtagsandMentionSymbol(remove_tags(removeBestTranslationSign(tokenizePunc(tokenizeContractions(tokenizeNumerics(removeDuplicates(removeTypoCorrectionSign(twitterprocessor(unifyapostrophe(line))))))))))))))
         preprocessedtext.append(line)
 with open ("/home/marwagaser/c2.txt","w") as output: #change file name to store results in here
        corpora = "\n".join(preprocessedtext)
