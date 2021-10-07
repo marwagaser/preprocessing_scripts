@@ -11,7 +11,7 @@ def twitterprocessor(line):
     line = remove_emojis(line)
     return p.clean(line) #remove URL, hashtag, emoticons, and emojis
 def tokenizeContractions(line):
-    return re.sub(r"n't|'(?:ll|[vr]e|[msd])", r" \g<0>", line)#tokenize contractions
+    return re.sub(r"(n't|'(?:ll|[vr]e|[msd]))\b", r" \g<0>", line)#tokenize contractions
 def tokenizeNumerics(line):
     return re.sub(r'(?<=[^0-9\s])(?=[0-9])|(?<=[0-9])(?=[^0-9\s])'," ",line)#tokenize numerics
 def removeDuplicates(line):#remove more than two duplicates
