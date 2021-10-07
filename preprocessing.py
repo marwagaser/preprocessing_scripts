@@ -18,8 +18,8 @@ def removeDuplicates(line):#remove more than two duplicates
     return re.sub(r"(.)\1+", r"\1\1", line) #remove >2 reptitions
 def tokenizePunc(line):
     return re.sub(r"([^\w\s\'])", r' \1 ', line) #tokenize punctuation except apostrophe
-def chooseIntended(line):
-   return re.sub(r"\[\s*([^][|]*?)\s*\|[^][]*]", r"\1", line)
+# def chooseIntended(line):
+#    return re.sub(r"\[\s*([^][|]*?)\s*\|[^][]*]", r"\1", line)
 def removeextraspace(line):
     return re.sub('\s{2,}', ' ', line)
 def lowercase(line):
@@ -34,7 +34,7 @@ def remove_tags(line):
     return re.sub(r"\<|\>|\«|\»","",line)
 with open ("/home/marwagaser/c1.txt","r") as textfile:#(change file name here)
     for line in textfile:
-        line = lowercase(remove_trailing_leading_spaces(removeextraspace(remove_tags(removeBestTranslationSign(tokenizePunc(tokenizeContractions(tokenizeNumerics(removeDuplicates(removeTypoCorrectionSign(twitterprocessor(chooseIntended(unifyapostrophe(line)))))))))))))
+        line = lowercase(remove_trailing_leading_spaces(removeextraspace(remove_tags(removeBestTranslationSign(tokenizePunc(tokenizeContractions(tokenizeNumerics(removeDuplicates(removeTypoCorrectionSign(twitterprocessor(unifyapostrophe(line))))))))))))
         preprocessedtext.append(line)
 with open ("/home/marwagaser/c2.txt","w") as output: #change file name to store results in here
        corpora = "\n".join(preprocessedtext)
