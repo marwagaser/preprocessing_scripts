@@ -17,7 +17,7 @@ def tokenizeNumerics(line):
 def removeDuplicates(line):#remove more than two duplicates
     return re.sub(r"(.)\1+", r"\1\1", line) #remove >2 reptitions
 def tokenizePunc(line):
-    return re.sub(r"([^\w\s])", r' \1 ', line) #tokenize punctuation
+    return re.sub(r"([^\w\s\'])", r' \1 ', line) #tokenize punctuation except apostrophe
 def chooseIntended(line):
    return re.sub(r"\[\s*([^][|]*?)\s*\|[^][]*]", r"\1", line)
 def removeextraspace(line):
