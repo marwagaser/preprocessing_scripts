@@ -6,7 +6,7 @@ def detokenizeContractions(line):
     line = re.sub('\’','\'',line)
     return re.sub(r"\s(n't|'(?:ll|[vr]e|[msd]))\b", r"\1", line)#detokenize contractions
 def detokenizeDashes(line):
-    return re.sub(r"(\s)(-)",r"\2",line)
+    return re.sub(r"(\s)(-)(\s)",r"\2",line)#removes space around hyphen
 detok = []
 with open ("/home/marwagaser/c2.txt","r") as textfile:#(change file name here)
     for line in textfile:
