@@ -1,4 +1,4 @@
-
+#contractions tokenization?
 from camel_tools.utils.dediac import dediac_ar
 from camel_tools.tokenizers.word import simple_word_tokenize
 
@@ -16,7 +16,7 @@ def remove_diacritics(text):
      return dediac_ar(text)
 with open ("/home/marwagaser/corpora/Round3/Round3/LDC2021T15/LDC2021T15_1.eg") as textfile: #enter file name here
     for line in textfile:
-      line = simple_word_tokenize(ortho_normalize(remove_diacritics(line)))
+      line = ortho_normalize(remove_diacritics(line))
       line = ' '.join(line)
       line = re.sub('\s{2,}', ' ', line) #remove extra spaces in the line
       tokenized.append(line)
