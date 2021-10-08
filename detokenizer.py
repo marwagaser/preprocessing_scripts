@@ -1,6 +1,10 @@
 from sacremoses import MosesDetokenizer
 md = MosesDetokenizer(lang='en')
 import re
+def detokenizeCombinedWords(line):
+    line = re.sub(r'\b(can)(\s)(not)\b', 'cannot',line)
+    line = re.sub(r'\b(gon)(\s)(na)\b', 'gonna',line)
+    return re.sub(r'\b(wan)(\s)(na)\b', 'wanna',line)
 def detokenizeContractions(line):
     #convert all ’ into ' then detokenize contractions
     line = re.sub('\’','\'',line)
