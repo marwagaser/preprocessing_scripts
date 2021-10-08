@@ -17,6 +17,7 @@ with open ("/home/marwagaser/c2.txt","r") as textfile:#(change file name here)
         line_list = line.split(" ")
         new_line = md.detokenize(line_list) #detokenize using Moses Detokenizer
         new_line = detokenizeContractions(new_line) #detokenize contractions like do n't because Moses Detokenizer doesn't do that
+        new_line = detokenizeCombinedWords(new_line)#detokenize combined words gon na-> gonna
         new_line = detokenizeDashes(new_line) #remove the space before a (-) because Moses Detokenizer doesn't do that
         detok.append(new_line)
 
