@@ -3,10 +3,10 @@ def remove_exclamation_mark_at_beginning(line):
     #if there's an exclamation mark at the beginning of a seq 
     # of non-space chars it should be removed
     return re.sub(r'(?<!\S)(\!)([^\s\!])', r"\2", line)
-def removeTalkNoise(line): # (considers any bracket combination too) removes noise in CALLHOME like {laugh}, {sneeze}, {breath}, {lipsmack}, [distortion], [static], [background]
+def removeTalkNoise(line): # (considers any bracket combination too) removes noise in CALLHOME like {laugh}, {sneeze}, {breath}, {lipsmack}
     return re.sub(r"(?i)(\(|\{|\[)\s*(laugh|sneeze|cough|breath|lipsmack)\s*(\)|\}|\])"," ",line)
 def removeIntermittentNoise(line): #removes noise in CALLHOME like [/static] [static/]
-    return re.sub(r"(?i)(\[|\<|\{|\()(\/)?\s*(distortion|static|background|aside|overlap)\s*(\]|\>|\)|\})|(\[|\<|\{|\()\s*(distortion|static|background|aside|overlap)\s*(\/)?(\]|\>|\)|\})"," ",line)
+    return re.sub(r"(?i)(\[|\<|\{|\()(\/)?\s*(distortion|static|background|aside|overlap)\s*(\]|\>|\)|\})|(\[|\<|\{|\()\s*(distortion|static|background|aside|overlap)\s*(\/)?(\]|\>|\)|\})","",line)
 def removeDoubleParentheses(line):
     return re.sub(r"\(\s*\(\s*[^(]*\s*\)\s*\)"," ",line) #Remove (()) and its content
 def removeDoubleSquareParentheses(line):
@@ -27,7 +27,7 @@ def removeDoubleHyphens(line):
 def remove_underscore(line):
     return re.sub(r"\_", " ",line)
 preprocessedtext=[]
-with open ("/home/marwagaser/checked/Callhome_MT-20211018T093545Z-001/Callhome_MT/train/old/tgt_42","r") as textfile:#(change file name here)
+with open ("/home/marwagaser/c1.txt","r") as textfile:#(change file name here)
     for line in textfile:
         line = line.strip()
         line = remove_underscore(remove_exclamation_mark_at_beginning(removeDoubleHyphens(removePartialwords(removeProperNounAnnotation(removeLanguageTags_MSA_and_Others(
@@ -45,8 +45,9 @@ with open ("/home/marwagaser/checked/Callhome_MT-20211018T093545Z-001/Callhome_M
                     )
                     ))))
         
-        
+       
         preprocessedtext.append(line)
-with open ("/home/marwagaser/checked/Callhome_MT-20211018T093545Z-001/Callhome_MT/train/old/tgt_42_0","w") as output: #change file name to store results in here
+with open ("/home/marwagaser/c2.txt","w") as output: #change file name to store results in here
        corpora = "\n".join(preprocessedtext)
        output.write(corpora)
+
