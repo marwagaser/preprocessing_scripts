@@ -12,12 +12,14 @@ def select_lines(text, keyword):
     return chunks_needed
 
 allwords=[]
+def check_ar(line):
+  regex = re.compile(r'[ء-ي]+')
+  if (regex.search(line)):
+    return True
+  else:
+    return False
 
 
-allwords=[]
-# text_file = open("file2.txt")
-# text_file_string = text_file.read()
-# target_paragraphs = select_lines(text_file_string,"CHUNK")
 import os
 
 for filename in os.listdir('integrated'):
@@ -41,14 +43,16 @@ for filename in os.listdir('integrated'):
                 end_index_of_seg = int(sen_s_list[6])
                 #store arabic unsegmented in file and follow it by a tab
                 temp_t=[]
-                for index in range(start_index_of_seg,end_index_of_seg+1):
-                  temp_t.append(t_list[index].split("·")[-3])
-                segmented_arabic_word = (" ".join(map(str, temp_t)))
-                finalword=arabic_unsegmented_word+"\t"+segmented_arabic_word
-                allwords.append(finalword)
+                if (check_ar(arabic_unsegmented_word)):
+                  for index in range(start_index_of_seg,end_index_of_seg+1):
+                    temp_t.append(t_list[index].split("·")[-3].strip())
+                  segmented_arabic_word = (" ".join(map(str, temp_t)))
+                  segmented_arabic_word = ' '.join(segmented_arabic_word.split())
+                  finalword=arabic_unsegmented_word.strip()+"\t"+segmented_arabic_word
+                  allwords.append(finalword)
                 
 
-with open ("op.txt","w") as output: #file to store the results in
+with open ("arabic_wl","w") as output: #file to store the results in
 	output.write("\n".join(map(str, allwords)))
   
 
